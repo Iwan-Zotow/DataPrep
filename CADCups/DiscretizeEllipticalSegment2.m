@@ -17,6 +17,7 @@ assert( sign(Z(1)) == sign(Z(2)));
 %convert to (x-xo)^2/a^2 + (y-yo)^2/b^2 = 1
 xo = -0.5 * Z(3) / Z(1);
 yo = -0.5 * Z(4) / Z(2);
+
 a = sqrt( (Z(1)*xo*xo + Z(2)*yo*yo - Z(5))/Z(1) );
 b = sqrt( (Z(1)*xo*xo + Z(2)*yo*yo - Z(5))/Z(2) );
 
@@ -27,6 +28,7 @@ assert( clockwise == ispolycw([x2 x3 x4], [y2 y3 y4]) );
 
 thetas = angle( (x1-xo)/a + i*(y1-yo)/b );
 thetae = angle( (x4-xo)/a + i*(y4-yo)/b );
+
 if clockwise
     if thetae > thetas
         thetas = thetas + 2*pi;

@@ -42,7 +42,6 @@ def ispolycw(x, y):
 
     return (s > 0.0, 0.5*s) # CW flag, signed area of the polygon
 
-
 if __name__ == "__main__":
 
     # compare with Matlab/Octave test_ispolycw.m

@@ -188,14 +188,15 @@ def disc_elliptical_segment(x1, y1, x2, y2, x3, y3, x4, y4, tol):
     b = math.sqrt( (Z[0, 0]*xo*xo + Z[1, 0]*yo*yo - Z[4, 0])/Z[1, 0] )
 
     # determine clockwiseness
-    clockwise = ispolycw.ispolycw([x1, x2, x3], [y1, y2, y3])
-    if clockwise != ispolycw.ispolycw([x2, x3, x4], [y2, y3, y4]): # check all points
+    clockwise123, area123 = ispolycw.ispolycw([x1, x2, x3], [y1, y2, y3])
+    clockwise234, area234 = ispolycw.ispolycw([x2, x3, x4], [y2, y3, y4])
+    if clockwise123 != clockwise234: # check all points
         return (None, None)
 
     thetas = math.atan2( (y1 - yo)/b, (x1 - xo)/a )
     thetae = math.atan2( (y4 - yo)/b, (x4 - xo)/a )
 
-    if clockwise:
+    if clockwise123:
         if thetae > thetas:
             thetas += 2.0 * math.pi
     else:
@@ -313,22 +314,20 @@ def disc_2d(curve, tol):
 
 if __name__ == "__main__":
 
+    print("====== Line Segment ======")
     xs, ys = disc_line_segment(0.0, 0.0, 1.0, 1.0, 0.05)
     for x, y in map(lambda x, y: (x,y), xs, ys):
         print(x, y)
 
-    print("========================")
-
+    print("====== Arc Segment ======")
     xs, ys = disc_arc_segment(0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.05)
     for x, y in map(lambda x, y: (x,y), xs, ys):
         print(x, y)
 
-    print("========================")
-
-    xs, ys = disc_elliptical_segment(0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 2.0, -1.0, 0.05)
-    print(xs)
-    print(ys)
-
-    if xs != None and ys != None:
+    print("====== Elliptical Segment ======")
+    xs, ys = disc_elliptical_segment(63.29, -85.40, 41.15, -123.13, 0.00, 138.00, 5.0, 211.0, 2.0)
+    if xs is None or ys is None:
+        print("None returned from disc_elliptical_segment")
+    else:
         for x, y in map(lambda x, y: (x,y), xs, ys):
             print(x, y)
