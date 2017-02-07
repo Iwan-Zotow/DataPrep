@@ -5,7 +5,9 @@ import numpy as np
 
 from XcMath.idx import X, Y
 
-r"""This module implements 2D FP point"""
+r"""
+This module implements 2D FP point
+"""
 
 class point2d(object):
     """

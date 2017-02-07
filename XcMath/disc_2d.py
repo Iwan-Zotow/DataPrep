@@ -1,14 +1,14 @@
-#
-# This module is about discretization of different 2d elements
-# For a given element and tolerance it produces set of
-# discretized (x,y) points
-#
-
 import math
 import numpy as np
 
 from XcMath import nullspace
 from XcMath import ispolycw
+
+r"""
+This module is about discretization of different 2d elements
+For a given element and tolerance it produces set of
+discretized (x,y) points
+"""
 
 def disc_line_segment(xs, ys, xe, ye, tol):
     """
@@ -32,6 +32,11 @@ def disc_line_segment(xs, ys, xe, ye, tol):
 
         tol: float
             tolerance
+
+    Return value
+    ------------
+        r: tuple(numpy.array, numpy.array)
+            discretized X and Y coordinates
     """
 
     x = []
@@ -75,6 +80,11 @@ def disc_arc_segment(x1, y1, x2, y2, x3, y3, tol):
 
         tol: float
             tolerance
+
+    Return value
+    ------------
+        r: tuple(numpy.array, numpy.array)
+            discretized X and Y coordinates
     """
 
     A = np.array([[x1*x1+y1*y1, x1, y1, 1.0], [x2*x2+y2*y2, x2, y2, 1.0], [x3*x3+y3*y3, x3, y3, 1.0]])
@@ -152,6 +162,11 @@ def disc_elliptical_segment(x1, y1, x2, y2, x3, y3, x4, y4, tol):
 
         tol: float
             tolerance
+
+    Return value
+    ------------
+        r: tuple(numpy.array, numpy.array)
+            discretized X and Y coordinates
     """
 
     A = np.array([[x1*x1, y1*y1, x1, y1, 1.0],
@@ -201,11 +216,27 @@ def disc_elliptical_segment(x1, y1, x2, y2, x3, y3, x4, y4, tol):
 def disc_2d(curve, tol):
     """
     Given the curve and the tolerance, produce discretized arrays
+
+    Parameters
+    ----------
+
+        fname: string
+            input outer cup file name
+
+        tol: float
+            tolerance
+
+    Return value
+    ------------
+
+        r: tuple(numpy.array, numpy.array, numpy.array, numpy.array)
+            discretized X and Y coordinates, X and Y control points
     """
 
     # discretized curve
     x = []
     y = []
+
     # control points
     xc = []
     yc = []
