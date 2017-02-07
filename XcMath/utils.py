@@ -10,8 +10,11 @@ def squared(v):
         v: any type with __mul__ defined
             value to be squared
 
-    returns: something
-        result of squaring
+    Return value
+    ------------
+
+        r: same type as v
+            result of squaring
     """
 
     return v*v
@@ -26,8 +29,11 @@ def cubed(v):
         v: any type with __mul__ defined
             value to be cubed
 
-    returns: something
-        result of cubing
+    Return value
+    ------------
+
+        r: same type as v
+            result of cubing
     """
 
     return v*v*v
@@ -48,8 +54,11 @@ def clamp(v, vmin, vmax):
         vmin: convertible to the type of v
             clamp maximum value
 
-    returns: something
-        clamped value
+    Return value
+    ------------
+
+        r: same type as v
+            clamped value
     """
 
     return vmin if v < vmin else vmax if v > vmax else v

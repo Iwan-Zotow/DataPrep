@@ -44,6 +44,8 @@ def ispolycw(x, y):
 
 
 if __name__ == "__main__":
+
+    # compare with Matlab/Octave test_ispolycw.m
     x = [0, 1, 1, 0, 0]
     y = [0, 0, 1, 1, 0]
     print(ispolycw(x, y))

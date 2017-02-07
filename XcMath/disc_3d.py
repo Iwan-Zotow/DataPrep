@@ -8,7 +8,7 @@ import math
 import numpy as np
 
 from XcMath import nullspace
-from XcIO import disc_2d
+from XcMath import disc_2d
 
 def disc_line_segment(xs, ys, zs, xe, ye, ze, tol):
     """
@@ -49,7 +49,7 @@ def disc_line_segment(xs, ys, zs, xe, ye, ze, tol):
     if xe == None or ye == None or ze == None:
         return (None, None, None)
 
-    d = math.sqrt((xe - xs)**2 + (ye - ys)**2 + (ze - zs)**2)
+    d = math.hypot(xe - xs, math.hypot(ye - ys, ze - zs))
     K = int(d/tol) + 2
 
     return (np.linspace(xs, xe, num=K), np.linspace(ys, ye, num=K), np.linspace(zs, ze, num=K))

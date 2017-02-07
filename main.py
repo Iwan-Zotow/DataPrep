@@ -32,6 +32,28 @@ def print_OCPparam(ocprm):
 def convert_to_OCP(xiw, yiw, xow, yow):
     """
     Take digitized curves and convert then to .OCP format
+
+    Parameters
+    ----------
+
+        xiw: array of floats
+            X inner wall
+
+        yiw: array of floats
+            Y inner wall
+
+        xow: array of floats
+            X outer wall
+
+        yow: array of floats
+            Y outer wall
+
+    Return value
+    ------------
+
+        r: tuple(array of floats, array of floats, array of floats, array of floats)
+            X inner wall, Y inner wall, X outer wall, Y outer wall
+            all in OCP format
     """
 
     yo = yiw[0]
@@ -62,6 +84,8 @@ def main(fname):
     """
 
     ocprm = OCPparam(fname)
+
+    print_OCPparam(ocprm)
 
     xiw, yiw, xciw, yciw = disc_2d.disc_2d(ocprm.InnerWall, 0.5)
     xow, yow, xcow, ycow = disc_2d.disc_2d(ocprm.OuterWall, 0.5)

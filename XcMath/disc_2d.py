@@ -39,15 +39,12 @@ def disc_line_segment(xs, ys, xe, ye, tol):
             discretized X and Y coordinates
     """
 
-    x = []
-    y = []
-
     if xs == None or ys == None:
         return (None, None)
     if xe == None or ye == None:
         return (None, None)
 
-    d = math.sqrt((xe - xs)**2 + (ye - ys)**2)
+    d = math.hypot(xe - xs, ye - ys)
     K = int(d/tol) + 2
 
     return (np.linspace(xs, xe, num=K), np.linspace(ys, ye, num=K))
