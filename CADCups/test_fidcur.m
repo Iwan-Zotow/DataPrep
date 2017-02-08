@@ -1,3 +1,3 @@
-FC = CwLoadOcpParam('C:/Users/kriol/Documents/Python/runEGS/CADCups/OuterCups/R8O3.ocpparam');
+Q = CwLoadOcpParam('C:/Users/kriol/Documents/Python/DataPrep/CADCups/OuterCups/In/R8O3.ocpparam');
 
-disp(FC)
+% disp(Q)

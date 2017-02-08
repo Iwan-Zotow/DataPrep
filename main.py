@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 
+import os
+
 from XcCore.OCPparam import OCPparam
 
 from XcMath       import utils
 from XcMath       import point2d
 from XcMath       import disc_2d
+from XcMath       import disc_3d
 
-from XcMath.idx import X, Y
+from XcMath.idx import X, Y, Z
 
 def print_OCPparam(ocprm):
     """
@@ -66,29 +69,20 @@ def convert_to_OCP(xiw, yiw, xow, yow):
 
     return (xxiw, yyiw, xxow, yyow)
 
-def main(fname):
+def MakeOCP(RadUnit, OuterCup):
     """
-    Main function, reads and process one OCPparam file
-
-    Parameters
-    ----------
-
-        fname: string
-            input outer cup file name
-
-    Return value
-    ------------
-
-        r: int
-            return code
+    Make OCP from OCPparam
     """
 
-    ocprm = OCPparam(fname)
+    fname_is = os.path.join("CADCups", "OuterCups", "In", "R" + "{0}O{1}.ocpparam".format(RadUnit, OuterCup))
+    fname_os = os.path.join(".", "qqq")
 
-    print_OCPparam(ocprm)
+    ocprm = OCPparam(fname_is)
 
-    xiw, yiw, xciw, yciw = disc_2d.disc_2d(ocprm.InnerWall, 0.5)
-    xow, yow, xcow, ycow = disc_2d.disc_2d(ocprm.OuterWall, 0.5)
+    # print_OCPparam(ocprm)
+
+    xiw, yiw, xciw, yciw = disc_2d.disc_2d(ocprm.InnerWall, 0.6)
+    xow, yow, xcow, ycow = disc_2d.disc_2d(ocprm.OuterWall, 0.6)
 
     # all data we have is of type 1
     # no chenches to outer wall
@@ -101,15 +95,36 @@ def main(fname):
 
     xxiw, yyiw, xxow, yyow = convert_to_OCP(xiw, yiw, xow, yow)
 
+    fx, fy, fz, fxc, fyc, fzc = disc_3d.disc_3d(ocprm.FiducialCurve, 0.6)
+
+def main(RadUnit, OuterCup):
+    """
+    Main function, reads and process one OCPparam file
+
+    Parameters
+    ----------
+
+        RadUnit: int
+            radiation unit
+
+        OuterCup
+
+    Return value
+    ------------
+
+        r: int
+            return code
+    """
+
+    MakeOCP(RadUnit, OuterCup)
+
     return 0
 
 if __name__ == "__main__":
 
     import sys
 
-    fname = "C:/Users/kriol/Documents/Python/DataPrep/Programs_n_Docs/OuterCups/In/R8O3.ocpparam"
-
-    rc = main(fname)
+    rc = main(8, 3)
 
     print("The end")
 

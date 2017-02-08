@@ -1,12 +1,12 @@
 function  OcpGen(RadiationUnitType, OuterCupType)
-    
+
     assert( nargin == 2 );
-    
+
     OcpParamFilePath = sprintf('OuterCups\\In\\R%dO%d.ocpparam',RadiationUnitType,OuterCupType);
     OcpParam = CwLoadOcpParam(OcpParamFilePath);
     assert(OcpParam.rutype == RadiationUnitType);
     assert(OcpParam.octype == OuterCupType);
-    
+
     scrsz = get(0,'ScreenSize');
     set(gcf,'position',[1 1 1024 768])
     axis equal;
@@ -59,8 +59,8 @@ function  OcpGen(RadiationUnitType, OuterCupType)
         end
         fclose(fid);
     end
-    
-    
+
+
     %Export Inside Wall GC
     insidewalltxtfilename = sprintf('OuterCups\\Out\\Verify_R%dO%d_InsideWall.txt', RadiationUnitType,OuterCupType);
     fid = fopen(insidewalltxtfilename, 'wt', 'native');
@@ -97,10 +97,10 @@ function  OcpGen(RadiationUnitType, OuterCupType)
         end
     end
     fclose(fid);
-        
-    
+
+
     %Save to .ocp format
-    OcpFilePath = sprintf('OuterCups\\Out\\R%dO%d.ocp', RadiationUnitType,OuterCupType);
+    OcpFilePath = sprintf('OuterCups\\Out\\R%dO%d.ocp', RadiationUnitType, OuterCupType);
     CwSaveAsDotOcp(OcpFilePath, OcpParam);
-    
+
 end

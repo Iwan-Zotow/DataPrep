@@ -1,4 +1,4 @@
-%Save to .icp format
+% Save OCPParam to .ocp format
 function CwSaveAsDotOcp(OcpFilePath, OcpParam)
 
     assert(nargin == 2);
@@ -42,24 +42,4 @@ function CwSaveAsDotOcp(OcpFilePath, OcpParam)
     end
 
     fclose(fid);
-end
-
-%return V, a (nVx3)-matrix
-function V = GetVertices(FC)
-    V = [];
-    for segment = 1 : length(FC)
-       V = [V; FC(segment).C];
-    end
-end
-
-function E = GetEdges(FC)
-    E = [];
-    nV = 0;
-    for segment = 1 : length(FC)
-        for v = 2 : size(FC(segment).C, 1)
-            e = [nV+v-2   nV+v-1];
-            E = [E; e];
-        end
-        nV = nV + size(FC(segment).C, 1);
-    end
 end
