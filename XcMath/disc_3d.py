@@ -62,9 +62,9 @@ def disc_line_segment(xs, ys, zs, xe, ye, ze, tol):
 
     return (np.linspace(xs, xe, num=K), np.linspace(ys, ye, num=K), np.linspace(zs, ze, num=K))
 
-def disc_3d(curve, tol):
+def disc_3d(commands, tol):
     """
-    Given the curve and the tolerance, produce discretized arrays
+    Given the array of commands  and the tolerance, produce discretized arrays
     """
 
     # discretized curve
@@ -76,7 +76,6 @@ def disc_3d(curve, tol):
     yc = []
     zc = []
 
-    commands = curve.split(";")
     cur_x = None
     cur_y = None
     cur_z = None
@@ -94,9 +93,9 @@ def disc_3d(curve, tol):
             x.append(px)
             y.append(py)
             z.append(pz)
-            xc.appned(px)
-            yc.appned(py)
-            zc.appned(pz)
+            xc.append(px)
+            yc.append(py)
+            zc.append(pz)
             cur_x = px
             cur_y = py
             cur_z = pz
@@ -131,3 +130,24 @@ def disc_3d(curve, tol):
 
     return (np.asarray(x), np.asarray(y), np.asarray(z),
             np.asarray(xc), np.asarray(yc), np.asarray(zc))
+
+def disc_fiducial(curve, tol):
+    """
+    Given the curve and the tolerance, produce discretized arrays
+    """
+
+    commands = curve.split(";")
+
+    first = commands[0]
+    last  = commands[-1]
+
+    if first != "newfc":
+        raise RuntimeError("No newfc command in the fiducial curve")
+
+    if last != "closefc":
+        raise RuntimeError("No closefc command in the fiducial curve")
+
+    del commands[-1]
+    del commands[0]
+
+    return disc_3d(commands, tol)

@@ -70,38 +70,44 @@ def ReadOCPparam(fname):
     with fileHandle:
         try:
             line = fileHandle.readline()
-            RU = int(line)
+            RadU = int(line)
 
             line = fileHandle.readline()
-            OC = int(line)
+            OutC = int(line)
 
             line = fileHandle.readline()
-            DistanceBottomOCToCouch = float(line)
+            DistanceBottomToCouch = float(line)
 
             line = fileHandle.readline()
             split = line.split(" ")
-            OCOrigin=[]
-            OCOrigin.append(float(split[0]))
-            OCOrigin.append(float(split[1]))
-            OCOrigin.append(float(split[2]))
+            Origin=[]
+            Origin.append(float(split[0]))
+            Origin.append(float(split[1]))
+            Origin.append(float(split[2]))
 
             line = fileHandle.readline()
-            OCWallEncodingType = int(line)
+            WallType = int(line)
 
-            OCInsideWallDescription = XcIOCommon.GetWallDescription(fileHandle)
+            InnerWall = XcIOCommon.GetWallDescription(fileHandle)
 
             #there is an empty line between the wall description
             #so read and discard
             line = fileHandle.readline()
-            OCOutsideWallDescription = XcIOCommon.GetWallDescription(fileHandle)
+            if len(line) > 1:
+                raise RuntimeError("Not an empty line")
+
+            OuterWall = XcIOCommon.GetWallDescription(fileHandle)
+
             #empty line again, read and discard
             line = fileHandle.readline()
-            FiducialCurveDescription = XcIOCommon.GetFiducialDescription(fileHandle)
+            if len(line) > 1:
+                raise RuntimeError("Not an empty line")
 
-            return (RU,OC,DistanceBottomOCToCouch,OCOrigin,OCWallEncodingType,OCInsideWallDescription,OCOutsideWallDescription,FiducialCurveDescription)
+            FiducialCurve = XcIOCommon.GetFiducialDescription(fileHandle)
+
+            return (RadU, OutC, DistanceBottomToCouch, Origin, WallType, InnerWall, OuterWall, FiducialCurve)
 
         except ValueError as e:
-            #raise ValueError('Invalid file format {0}\n{1}'.format(e.args, e.args))
             e.args += ('Invalid file format',)
             raise
         except IndexError as e:
@@ -109,13 +115,13 @@ def ReadOCPparam(fname):
             raise
 
 if __name__ == "__main__":
-    RU,OC,DistanceBottomOCToCouch,OCOrigin,OCWallEncodingType,OCInsideWallDescription,OCOutsideWallDescription,FiducialCurveDescription = ReadOCPparam("C:/Users/kriol/Documents/Python/runEGS/CADCups/OuterCups/In/R8O3.ocpparam")
+    RadU, OutC, DistanceBottomToCouch, Origin, WallType, InnerWall, OuterWall, FiducialCurve = ReadOCPparam("C:/Users/kriol/Documents/Python/DataPrep/CADCups/OuterCups/In/R8O3.ocpparam")
 
     print("Print data")
-    print(RU)
-    print(OC)
-    print(DistanceBottomOCToCouch)
+    print(RadU)
+    print(OutC)
+    print(DistanceBottomToCouch)
 
-    print(OCInsideWallDescription)
-    print(OCOutsideWallDescription)
-    print(FiducialCurveDescription)
+    print(InnerWall)
+    print(OuterWall)
+    print(FiducialCurve)

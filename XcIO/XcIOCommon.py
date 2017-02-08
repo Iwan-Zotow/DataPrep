@@ -85,6 +85,7 @@ def GetFiducialDescription(fileHandle):
         else: # more parameters to the current line
             s += " " + line.lstrip().rstrip("\n")
 
-    fiducialCurveDescription = fiducialCurveDescription + line.rstrip("\n")
+    print(line)
+    fiducialCurveDescription = fiducialCurveDescription + line.rstrip("\n") + ";closefc"
 
     return fiducialCurveDescription

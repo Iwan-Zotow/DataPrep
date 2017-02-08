@@ -3,13 +3,13 @@
 import os
 
 from XcCore.OCPparam import OCPparam
+from XcIO            import write_OCP
 
 from XcMath       import utils
 from XcMath       import point2d
 from XcMath       import disc_2d
 from XcMath       import disc_3d
-
-from XcMath.idx import X, Y, Z
+from XcMath.idx   import X, Y, Z
 
 def print_OCPparam(ocprm):
     """
@@ -75,11 +75,10 @@ def MakeOCP(RadUnit, OuterCup):
     """
 
     fname_is = os.path.join("CADCups", "OuterCups", "In", "R" + "{0}O{1}.ocpparam".format(RadUnit, OuterCup))
-    fname_os = os.path.join(".", "qqq")
 
     ocprm = OCPparam(fname_is)
 
-    # print_OCPparam(ocprm)
+    print_OCPparam(ocprm)
 
     xiw, yiw, xciw, yciw = disc_2d.disc_2d(ocprm.InnerWall, 0.6)
     xow, yow, xcow, ycow = disc_2d.disc_2d(ocprm.OuterWall, 0.6)
@@ -95,7 +94,10 @@ def MakeOCP(RadUnit, OuterCup):
 
     xxiw, yyiw, xxow, yyow = convert_to_OCP(xiw, yiw, xow, yow)
 
-    fx, fy, fz, fxc, fyc, fzc = disc_3d.disc_3d(ocprm.FiducialCurve, 0.6)
+    fx, fy, fz, fxc, fyc, fzc = disc_3d.disc_fiducial(ocprm.FiducialCurve, 0.6)
+
+    pts = [point2d.point2d(np.float32(x), np.float32(y)) for x, y in zip(self._xxiw,  self._yyiw)]
+    write_OCP
 
 def main(RadUnit, OuterCup):
     """
