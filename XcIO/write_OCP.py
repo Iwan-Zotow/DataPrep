@@ -46,22 +46,30 @@ def write3d(f, points):
         f.write("{0:13.6e} {1:13.6e} {2:13.6e}\n".format(pt.x, pt.y, pt.z))
     write3dcon(f, l)
 
-def write_OCP(RadUnit, OuterCup, xiw, yiw, xow, yow, xf, yf, zf):
+def write_OCP(RadUnit, OuterCup, DistToOC, iw, ow, fc):
+    """
+    """
 
-    fname = os.path.join(".",  "RR" + "{0}O{1}.ocp".format(RadUnit, OuterCup))
+    fname = os.path.join(".",  "R" + "{0}O{1}.ocp".format(RadUnit, OuterCup))
 
     with open(fname, 'w', encoding='utf-8') as f:
+        # radiation unit
+        f.write("{0}\n".format(RadUnit))
+
+        # outer cup size
+        f.write("{0}\n".format(OuterCup))
+
+        # distance to OC
+        f.write("{0:13.6e}\n".format(DistToOC))
+
         # inner cup
-        points = [point2d(np.float32(x), np.float32(y)) for x, y in zip(xiw, yiw)]
-        write2d(f, points)
+        write2d(f, iw)
 
         # outer cup
-        points = [point2d(np.float32(x), np.float32(y)) for x, y in zip(xow, yow)]
-        write2d(f, points)
+        write2d(f, ow)
 
         # fiducial
-        points = [point3d(np.float32(x), np.float32(y), np.float32(z)) for x, y, z in zip(xf, yf, zf)]
-        write3d(f, points)
+        write3d(f, fc)
 
 if __name__ == "__main__":
 

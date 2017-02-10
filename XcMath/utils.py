@@ -43,7 +43,25 @@ def cubed(v):
 def hypot(x, y, z):
     """
     Computes hypotenuse in 3D
+
+    Parameters
+    ----------
+        x: float
+            X side of the triangle
+
+        y: float
+            Y side of the triangle
+
+        z: float
+            Z side of the triangle
+
+    Return value
+    ------------
+        r: float
+            triangle hypotenuse
     """
+
+    # NB: to be done right
     return math.sqrt(x*x + y*y + z*z)
 
 def clamp(v, vmin, vmax):

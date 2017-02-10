@@ -262,7 +262,9 @@ def disc_2d(curve, tol):
             px = float(s[1])
             py = float(s[2])
 
-            xs, ys = disc_line_segment(cur_x, cur_y, px, py, tol)
+            # xs, ys = disc_line_segment(cur_x, cur_y, px, py, tol)
+            xs = [px]; ys = [py]
+
             x.extend(xs)
             y.extend(ys)
             xc.append(px)

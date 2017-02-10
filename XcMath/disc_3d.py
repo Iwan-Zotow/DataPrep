@@ -7,6 +7,8 @@
 import math
 import numpy as np
 
+from XcMath.utils import hypot
+
 r"""
 This module is about discretization of different 3d elements
 For a given element and tolerance it produces set of
@@ -57,7 +59,7 @@ def disc_line_segment(xs, ys, zs, xe, ye, ze, tol):
     if xe == None or ye == None or ze == None:
         return (None, None, None)
 
-    d = math.hypot(xe - xs, math.hypot(ye - ys, ze - zs))
+    d = hypot(xe - xs, ye - ys, ze - zs)
     K = int(d/tol) + 2
 
     return (np.linspace(xs, xe, num=K), np.linspace(ys, ye, num=K), np.linspace(zs, ze, num=K))

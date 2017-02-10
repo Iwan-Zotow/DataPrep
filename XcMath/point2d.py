@@ -121,7 +121,7 @@ class point2d(object):
         rc.append(pt_prev)
         for k in range(1, l):
             pt = pts[k]
-            if math.fabs(pt_prev.x() - pt.x()) > tol:
+            if point2d.distance(pt_prev, pt) > tol:
                 rc.append(pt)
 
             pt_prev = pt
