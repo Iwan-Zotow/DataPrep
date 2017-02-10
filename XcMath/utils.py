@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import math
+
 def squared(v):
     """
     Computes squared value
@@ -37,6 +39,12 @@ def cubed(v):
     """
 
     return v*v*v
+
+def hypot(x, y, z):
+    """
+    Computes hypotenuse in 3D
+    """
+    return math.sqrt(x*x + y*y + z*z)
 
 def clamp(v, vmin, vmax):
     """

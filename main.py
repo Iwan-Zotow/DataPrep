@@ -2,35 +2,15 @@
 
 import os
 
-from XcCore.OCPparam import OCPparam
-from XcIO            import write_OCP
+from XcCore.OCPparam      import OCPparam
+from XcIO.write_OCP       import write_OCP
+from XcIO.print_OCPparam  import print_OCPparam
 
 from XcMath       import utils
 from XcMath       import point2d
 from XcMath       import disc_2d
 from XcMath       import disc_3d
 from XcMath.idx   import X, Y, Z
-
-def print_OCPparam(ocprm):
-    """
-    Given the ocpparam object,
-    print it contents
-    """
-    print("===== Print data =====")
-    print(ocprm.RU)
-    print(ocprm.OC)
-
-    print(ocprm.DistanceBottomToCouch)
-
-    print(ocprm.Origin)
-
-    print(ocprm.WallType)
-
-    print(ocprm.InnerWall)
-
-    print(ocprm.OuterWall)
-
-    print(ocprm.FiducialCurve)
 
 def convert_to_OCP(xiw, yiw, xow, yow):
     """
@@ -94,10 +74,9 @@ def MakeOCP(RadUnit, OuterCup):
 
     xxiw, yyiw, xxow, yyow = convert_to_OCP(xiw, yiw, xow, yow)
 
-    fx, fy, fz, fxc, fyc, fzc = disc_3d.disc_fiducial(ocprm.FiducialCurve, 0.6)
+    xf, yf, zf, xcf, ycf, zcf = disc_3d.disc_fiducial(ocprm.FiducialCurve, 0.6)
 
-    pts = [point2d.point2d(np.float32(x), np.float32(y)) for x, y in zip(self._xxiw,  self._yyiw)]
-    write_OCP
+    write_OCP(RadUnit, OuterCup, xxiw, yyiw, xxow, yyow, xcf, ycf, zcf)
 
 def main(RadUnit, OuterCup):
     """

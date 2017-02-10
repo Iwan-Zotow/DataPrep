@@ -2,7 +2,9 @@
 
 import numpy as np
 
-from XcMath.idx import X, Y, Z
+from XcMath.idx   import X, Y, Z
+from XcMath.utils import hypot
+from XcMath.utils import squared
 
 r"""This module implements 3D FP point"""
 
@@ -114,9 +116,18 @@ class point3d(object):
         """
         return point3d(self._x - other._x, self._y - other._y, self._z - other._z)
 
+    @staticmethod
+    def distance(pa, pb):
+        return hypot(pa._x - pb._x, pa._y - pb._y, pa._z - pb._z)
+
+    @staticmethod
+    def distance2(pa, pb):
+        return squared(pa._x - pb._x) + squared(pa._y - pb._y) + squared(pa._z - pb._z)
+
 if __name__ == "__main__":
 
     p = point3d(12.0, 11.0, 10.0)
+    y = point3d(10.0, 11.0, 12.0)
 
     print("X = {0}".format(p.x))
     print("Y = {0}".format(p.y))
@@ -126,3 +137,7 @@ if __name__ == "__main__":
     print(p[Z])
     print(p[Y])
     print(p[X])
+
+    print(point3d.distance(p, y))
+    print(point3d.distance(y, p))
+    print(point3d.distance2(p, y))

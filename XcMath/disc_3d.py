@@ -147,7 +147,7 @@ def disc_fiducial(curve, tol):
     if last != "closefc":
         raise RuntimeError("No closefc command in the fiducial curve")
 
-    del commands[-1]
-    del commands[0]
+    del commands[-1] # remove closefc tag
+    del commands[0]  # remove newfc tag
 
     return disc_3d(commands, tol)

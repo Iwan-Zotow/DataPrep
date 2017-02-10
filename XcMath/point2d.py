@@ -3,7 +3,8 @@
 import math
 import numpy as np
 
-from XcMath.idx import X, Y
+from XcMath.utils  import squared
+from XcMath.idx    import X, Y
 
 r"""
 This module implements 2D FP point
@@ -88,6 +89,26 @@ class point2d(object):
         # beyond Y
         raise IndexError("point2d::__setitem__: index too large {0}".format(i))
 
+    def __add__(self, other):
+        """
+        Addition operator
+        """
+        return point2d(self._x + other._x, self._y + other._y)
+
+    def __sub__(self, other):
+        """
+        Substraction operator
+        """
+        return point2d(self._x - other._x, self._y - other._y)
+
+    @staticmethod
+    def distance(pa, pb):
+        return math.hypot(pa._x - pb._x, pa._y - pb._y)
+
+    @staticmethod
+    def distance2(pa, pb):
+        return squared(pa._x - pb._x) + squared(pa._y - pb._y)
+
     @staticmethod
     def remove_dupes(pts, tol):
         """
@@ -107,21 +128,10 @@ class point2d(object):
 
         return rc
 
-    def __add__(self, other):
-        """
-        Addition operator
-        """
-        return point2d(self._x + other._x, self._y + other._y)
-
-    def __sub__(self, other):
-        """
-        Substraction operator
-        """
-        return point2d(self._x - other._x, self._y - other._y)
-
 if __name__ == "__main__":
 
     p = point2d(12.0, 11.0)
+    y = point2d(11.0, 12.0)
 
     print("X = {0}".format(p.x))
     print("Y = {0}".format(p.y))
@@ -129,3 +139,5 @@ if __name__ == "__main__":
     print(repr(p))
     print(p[0])
     print(p[1])
+    print(point2d.distance(p, y))
+    print(point2d.distance2(p, y))
