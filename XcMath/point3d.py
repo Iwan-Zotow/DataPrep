@@ -118,11 +118,27 @@ class point3d(object):
 
     @staticmethod
     def distance(pa, pb):
+        """
+        Computes and returns distance
+        """
         return hypot(pa._x - pb._x, pa._y - pb._y, pa._z - pb._z)
 
     @staticmethod
     def distance2(pa, pb):
+        """
+        Computes and returns squared distance
+        """
         return squared(pa._x - pb._x) + squared(pa._y - pb._y) + squared(pa._z - pb._z)
+
+    @staticmethod
+    def cvt2array(tuples):
+        """
+        Convert list of tuples into list of points
+        """
+        rc = []
+        for t in tuples:
+            rc.append(point3d(np.float32(t[X]), np.float32(t[Y]), np.float32(t[Z])))
+        return rc
 
 if __name__ == "__main__":
 

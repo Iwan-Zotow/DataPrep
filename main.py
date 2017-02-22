@@ -13,6 +13,7 @@ from XcMath.point3d  import point3d
 from XcMath          import disc_2d
 from XcMath          import disc_3d
 from XcMath.idx      import X, Y, Z
+from rdp             import rdp
 
 def convert_to_OCP(xiw, yiw, xow, yow, xf, yf, zf):
     """
@@ -90,9 +91,12 @@ def MakeOCP(RadUnit, OuterCup):
         xcow = xcow - ocprm.Origin[X]
         ycow = ycow - ocprm.Origin[Y]
 
-    xf, yf, zf, xcf, ycf, zcf = disc_3d.disc_fiducial(ocprm.FiducialCurve, 3.0)
+    xf, yf, zf, xcf, ycf, zcf = disc_3d.disc_fiducial(ocprm.FiducialCurve, 0.05)
 
-    xxiw, yyiw, xxow, yyow, xxcf, yycf, zzcf = convert_to_OCP(xiw, yiw, xow, yow, xcf, ycf, zcf)
+    xxiw, yyiw, xxow, yyow, xxcf, yycf, zzcf = convert_to_OCP(xiw, yiw, xow, yow, xf, yf, zf)
+
+#    for k in range(len(xcf)):
+#        print("{0}  {1}  {2}".format(xxcf[k], yycf[k], zzcf[k]))
 
     iw = [point2d(np.float32(x), np.float32(y)) for x, y in zip(xxiw, yyiw)]
     iw = point2d.remove_dupes(iw, 0.5)
@@ -100,8 +104,8 @@ def MakeOCP(RadUnit, OuterCup):
     ow = [point2d(np.float32(x), np.float32(y)) for x, y in zip(xxow, yyow)]
     ow = point2d.remove_dupes(ow, 0.5)
 
-    fc = [point3d(np.float32(x), np.float32(y), np.float32(z)) for x, y, z in zip(xxcf, yycf, zzcf)]
-    fc = point2d.remove_dupes(fc, 1.0)
+    fc = list(zip(xxcf, yycf, zzcf))
+    fc = point3d.cvt2array(rdp(fc, 0.01))
 
     write_OCP(RadUnit, OuterCup, ocprm.DistanceBottomToCouch, iw, ow, fc)
 
@@ -132,7 +136,7 @@ if __name__ == "__main__":
 
     import sys
 
-    rc = main(8, 2)
+    rc = main(8, 1)
 
     print("The end")
 
