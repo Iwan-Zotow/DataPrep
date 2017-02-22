@@ -67,6 +67,31 @@ function OcpParam = CwLoadOcpParam(OcpParamFilePath)
 
     %load and simplify fiducial curve
     FC = CwReadFiducialCurve(fid, [GCi(:,2) GCi(:,1)], 0.01);
+
+    %{
+    disp("------------------------")
+    disp(length(FC))
+    disp("------------------------")
+
+    cpf = fopen('control.dat','w');
+    for segment = 1 : length(FC)
+        for k = 1 : size(FC(segment).XC, 1)
+            fprintf(cpf, '%13.4e %13.4e %13.4e\n', FC(segment).XC(k), FC(segment).YC(k), FC(segment).ZC(k))
+        end
+    end
+    fclose(cpf)
+
+    for segment = 1 : length(FC)
+        disp(size(FC(segment).X, 1))
+        disp(size(FC(segment).Y, 1))
+        disp(size(FC(segment).Z, 1))
+        disp(size(FC(segment).XC, 1))
+        disp(size(FC(segment).YC, 1))
+        disp(size(FC(segment).ZC, 1))
+    end
+    disp("------------------------")
+    %}
+
     for segment = 1 : length(FC)
         if coordType == 2
             FC(segment).X = FC(segment).X - OcpParam.ocdOrigin(1);
