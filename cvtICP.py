@@ -5,6 +5,10 @@ from __future__ import print_function
 import os
 import sys
 
+r"""
+converts calculation array to ICP format
+"""
+
 if __name__ == "__main__":
 
     if len(sys.argv) == 1:
