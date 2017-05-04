@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import print_function
-
 import os
 import sys
 
@@ -22,40 +20,47 @@ if __name__ == "__main__":
     with open(sys.argv[1]) as f:
         # RU
         line = f.readline().rstrip('\n')
-        print(line)
+        sys.stdout.write(line)
+        sys.stdout.write("\n")
 
         # Outer cup
         line = f.readline().rstrip('\n')
-        print(line)
+        sys.stdout.write(line)
+        sys.stdout.write("\n")
 
         # Inner cup
         line = f.readline().rstrip('\n')
-        print(line)
+        sys.stdout.write(line)
+        sys.stdout.write("\n")
 
         # nof points in the inner wall
         line = f.readline().rstrip('\n')
         niw = int(line)
-        print(line)
+        sys.stdout.write(line)
+        sys.stdout.write("\n")
 
         # inner wall
         for k in range(niw):
             line = f.readline().rstrip('\n')
             s = line.split(' ')
+            s = [x for x in s if x] # remove empty lines
             z = float(s[0]) - shift
             r = float(s[1])
-            print("{0:13.6e} {1:13.6e}".format(z, r))
+            sys.stdout.write("{0:13.6e} {1:13.6e}\n".format(z, r))
 
         # nof points in the outer wall
         line = f.readline().rstrip('\n')
         now = int(line)
-        print(line)
+        sys.stdout.write(line)
+        sys.stdout.write("\n")
 
-        # inner wall
+        # outer wall
         for k in range(now):
             line = f.readline().rstrip('\n')
             s = line.split(' ')
+            s = [x for x in s if x] # remove empty lines
             z = float(s[0]) - shift
             r = float(s[1])
-            print("{0:13.6e} {1:13.6e}".format(z, r))
+            sys.stdout.write("{0:13.6e} {1:13.6e}\n".format(z, r))
 
     sys.exit(0)
