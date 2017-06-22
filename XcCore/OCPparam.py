@@ -100,19 +100,29 @@ if __name__ == "__main__":
 
     import sys
 
-    ocpp = OCPparam("C:/Users/kriol/Documents/Python/DataPrep/Programs_n_Docs/OuterCups/In/R8O3.ocpparam")
+    ocpp = OCPparam("C:/Users/oleg.krivosheev/Documents/Python/DataPrep/Programs_n_Docs/OuterCups/In/R8O1.ocpparam")
 
-    print(cup._RU)
-    print(cup._OC)
-    print(cup._DistanceBottomOCToCouch)
-    print(cup._OCOrigin)
-    print(cup._OCWallEncodingType)
-    #print(cup._OCInsideWallDescription)
-    #print(cup._OCOutsideWallDescription)
-    #print(cup._FiducialCurveDescription)
+    sep = "========================"
+    print(sep)
+    print(ocpp.RU)
+    print(sep)
+    print(ocpp.OC)
+    print(sep)
+    print(ocpp.DistanceBottomToCouch)
+    print(sep)
+    print(ocpp.Origin)
+    print(sep)
+    print(ocpp.WallType)
+    print(sep)
+    print(ocpp.InnerWall)
+    print(sep)
+    print(ocpp.OuterWall)
+    print(sep)
+    print(ocpp.FiducialCurve)
+    print(sep)
 
-    for x, y in map(lambda x, y: (x,y), cup._xxiw, cup._yyiw):
-        print(x, y)
-    print("========================")
-    for x, y in map(lambda x, y: (x,y), cup._xxow, cup._yyow):
-        print(x, y)
+    # for x, y in map(lambda x, y: (x,y), ocpp._xxiw, ocpp._yyiw):
+    #     print(x, y)
+    # print("========================")
+    # for x, y in map(lambda x, y: (x,y), ocpp._xxow, ocpp._yyow):
+    #     print(x, y)

@@ -48,6 +48,7 @@ def write3d(f, points):
 
 def write_OCP(RadUnit, OuterCup, DistToOC, iw, ow, fc):
     """
+    Make OCP file name and write all inner, outer and fiducial into it
     """
 
     fname = os.path.join(".",  "R" + "{0}O{1}.ocp".format(RadUnit, OuterCup))
